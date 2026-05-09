@@ -39,3 +39,22 @@ Note : Auto-assign public IPv4 activé sur les subnets publics uniquement.
 - Elastic IP : allouée automatiquement
 - Rôle : permet aux instances privées de sortir vers Internet 
   (mises à jour, téléchargement WordPress) sans être accessibles depuis l'extérieur
+- 0.0.0.0/0 → TheCloudPastor-NAT (sortie Internet pour instances privées)
+
+- Mode : Regional (couvre automatiquement toutes les AZs)
+- Note : le mode Zonal aurait nécessité de spécifier Public-Subnet-1 
+  explicitement, mais Regional offre une meilleure résilience Multi-AZ
+
+
+
+
+## Phase 2 - Security Groups
+
+| Nom | Port | Source | Rôle |
+|---|---|---|---|
+| WP-ALB-SG | 80 (HTTP) | 0.0.0.0/0 | Reçoit le trafic public |
+| WP-Web-SG | 80 (HTTP) | WP-ALB-SG | Reçoit uniquement du Load Balancer |
+| WP-DB-SG | 3306 (MySQL) | WP-Web-SG | Reçoit uniquement des serveurs WordPress |
+
+Note : chaînage des Security Groups = défense en profondeur.
+Aucune ressource n'est exposée directement à Internet sauf l'ALB.
