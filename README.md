@@ -105,6 +105,20 @@ Une instance EC2 a été terminée manuellement pour valider la résilience :
 
 ---
 
+## Problèmes rencontrés
+
+### Apache non démarré au lancement
+**Problème** : les instances EC2 échouaient au health check de l'ALB.  
+**Cause** : `systemctl start httpd` absent du script User Data.  
+**Solution** : ajout de `systemctl enable httpd && systemctl start httpd` 
+après l'installation des packages.  
+**Leçon** : installer un service ne le démarre pas — toujours l'activer explicitement.
+
+
+---
+
+
+
 ## Compétences Démontrées (SAA-C03)
 
 - Conception d'architectures sécurisées (IAM, Secrets Manager, Security Groups)
