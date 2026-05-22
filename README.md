@@ -1,6 +1,6 @@
 # wordpress-ha-aws
 
-Déploiement d'une infrastructure WordPress de niveau entreprise sur AWS — hautement disponible, sécurisée, et entièrement automatisée. Ce projet fait partie d'un programme de formation CloudOps Essentials (Semaine 1/8).
+Déploiement d'une infrastructure WordPress de niveau entreprise sur AWS — hautement disponible, sécurisée, et entièrement automatisée.
 
 ---
 
